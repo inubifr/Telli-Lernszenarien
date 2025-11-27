@@ -3,158 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telli Szenario-Assistent</title>
+    <title>Telli Lernszenario-Assistent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f4f6f7;
-            --card-bg: #ffffff;
-            --text-color: #333;
+            /* Farbpalette: Schwarz, Grau, Rot */
+            --primary-red: #D32F2F;       /* Kräftiges Rot */
+            --primary-red-hover: #B71C1C; /* Dunkleres Rot für Hover */
+            --text-dark: #111111;         /* Fast Schwarz */
+            --text-gray: #555555;         /* Mittelgrau */
+            --border-color: #cccccc;      /* Helles Grau für Ränder */
+            --bg-light: #f4f4f4;          /* Sehr helles Grau für Hintergründe */
+            --bg-body: #e0e0e0;           /* Hintergrund der Seite */
+            --radius: 4px;                /* Etwas eckigeres Design */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--text-dark);
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            align-items: flex-start;
         }
 
         .container {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
-            transition: all 0.3s ease;
+            background: white;
+            padding: 50px;
+            border-top: 6px solid var(--primary-red); /* Roter Akzent oben */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        h1 {
-            color: var(--primary-color);
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
             margin-bottom: 10px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
-
-        .step {
-            display: none; /* Alle Schritte standardmäßig ausblenden */
-            animation: fadeIn 0.5s;
-        }
-
-        .step.active {
-            display: block; /* Nur den aktiven Schritt anzeigen */
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        input[type="text"], 
-        textarea, 
-        select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus, 
-        textarea:focus, 
-        select:focus {
-            border-color: var(--accent-color);
-            outline: none;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-next {
-            background-color: var(--accent-color);
-            color: white;
-            margin-left: auto;
-        }
-
-        .btn-next:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-back {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        .btn-back:hover {
-            background-color: #7f8c8d;
-        }
-
-        /* Result Styles */
-        .result-box {
-            background-color: #ecf0f1;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--accent-color);
-            position: relative;
-        }
-
-        .result-label {
-            font-size: 0.85rem;
             text-transform: uppercase;
-            color: #7f8c8d;
-            margin-bottom: 5px;
-            font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
+        .header p {
+            color: var(--text-gray);
+            font-size: 1.05rem;
         }
-        
-        .copy-btn:hover {
-            background-color: #eee;
+
+        /* Fortschrittsbalken */
+        .progress-bar {
+            height: 4px;
+            background: #ddd;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        /* Fragen-Karten */
+        .question-card {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .question-card.active {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -162,243 +96,427 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .progress-bar {
-            height: 6px;
-            background-color: #eee;
-            border-radius: 3px;
-            margin-bottom: 30px;
-            overflow: hidden;
+        .question-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
         }
 
-        .progress-fill {
-            height: 100%;
-            background-color: var(--accent-color);
-            width: 0%;
-            transition: width 0.3s ease;
+        .question-subtitle {
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--text-dark);
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            border-left: 4px solid var(--primary-red);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-red-hover);
+        }
+
+        .btn-secondary {
+            background: #555;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Ergebnis-Bereich */
+        .result-section {
+            display: none;
+        }
+
+        .result-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--text-dark);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative; /* Für absolute Positionierung des Buttons */
+        }
+
+        .result-box h3 {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            width: calc(100% - 90px); /* Platz für den Button lassen */
+        }
+
+        .result-box p {
+            color: var(--text-dark);
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace; /* Code-Look für den Text */
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Einzelner Kopier-Button im Kasten */
+        .copy-single-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            padding: 5px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-single-btn:hover {
+            background: var(--text-dark);
+            color: white;
+        }
+
+        .copy-single-btn.copied {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .result-box h3 {
+                width: 100%;
+                margin-bottom: 40px; /* Mehr Platz, damit Button nicht überlappt */
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Telli Szenario-Assistent</h1>
-    <p class="subtitle">Ich helfe dir, die Felder für dein Lernszenario auszufüllen.</p>
-    
-    <div class="progress-bar">
-        <div class="progress-fill" id="progress"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Telli Szenario-Assistent</h1>
+            <p>Erstelle dein Lernszenario Schritt für Schritt.</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <form onsubmit="return false;">
+            <!-- Frage 1: Thema & Zielgruppe -->
+            <div class="question-card active" id="q1">
+                <div class="question-title">1. Basisdaten</div>
+                <div class="question-subtitle">Worum geht es in diesem Szenario?</div>
+                
+                <label for="thema">Thema / Unterrichtseinheit</label>
+                <input type="text" id="thema" placeholder="z.B. Industrielle Revolution">
+                
+                <div class="input-row">
+                    <div>
+                        <label for="schultyp">Schultyp</label>
+                        <select id="schultyp">
+                            <option value="Gymnasium">Gymnasium</option>
+                            <option value="Realschule">Realschule</option>
+                            <option value="Hauptschule">Hauptschule</option>
+                            <option value="Gesamtschule">Gesamtschule</option>
+                            <option value="Berufsschule">Berufsschule</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="klasse">Klassenstufe</label>
+                        <input type="text" id="klasse" placeholder="z.B. 9">
+                    </div>
+                    <div>
+                        <label for="fach">Fach</label>
+                        <input type="text" id="fach" placeholder="z.B. Geschichte">
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="nextQuestion(1)">Weiter</button>
+                </div>
+            </div>
+
+            <!-- Frage 2: Lernziel -->
+            <div class="question-card" id="q2">
+                <div class="question-title">2. Das Ziel</div>
+                <div class="question-subtitle">Was sollen die Schüler am Ende können?</div>
+                
+                <label for="lernziel">Lernzielbeschreibung</label>
+                <textarea id="lernziel" placeholder="z.B. Die Schüler sollen die sozialen Folgen der Industrialisierung benennen und bewerten können."></textarea>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevQuestion(2)">Zurück</button>
+                    <button class="btn btn-primary" style="flex: 1;" onclick="nextQuestion(2)">Weiter</button>
+                </div>
+            </div>
+
+            <!-- Frage 3: Rolle der KI -->
+            <div class="question-card" id="q3">
+                <div class="question-title">3. Die Rolle der KI</div>
+                <div class="question-subtitle">Wie soll sich Telli verhalten?</div>
+                
+                <label for="kiRolle">Rollenwahl</label>
+                <select id="kiRolle" onchange="toggleCustomRole()">
+                    <option value="">-- Bitte wählen --</option>
+                    <option value="tutor">Sokratischer Tutor (stellt nur Fragen)</option>
+                    <option value="expert">Experte (erklärt verständlich)</option>
+                    <option value="historisch">Historische Figur (Rollenspiel)</option>
+                    <option value="debatte">Debattierpartner (Gegenposition)</option>
+                    <option value="quiz">Quizmaster (prüft Wissen)</option>
+                    <option value="custom">Eigene Rolle definieren</option>
+                </select>
+
+                <div id="customRoleContainer" style="display:none;">
+                    <label for="kiRolleCustom" style="margin-top: 15px;">Beschreibung der eigenen Rolle</label>
+                    <textarea id="kiRolleCustom" placeholder="Beschreibe genau, wie die KI sein soll..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevQuestion(3)">Zurück</button>
+                    <button class="btn btn-primary" style="flex: 1;" onclick="generateResult()">Erstellen</button>
+                </div>
+            </div>
+
+            <!-- Ergebnis -->
+            <div class="result-section" id="result">
+                <div class="question-title">Fertig!</div>
+                <div class="question-subtitle">Kopiere die Texte einzeln in die entsprechenden Felder.</div>
+
+                <!-- Kasten 1 -->
+                <div class="result-box">
+                    <h3>Feld: Wie heißt das Szenario?</h3>
+                    <button class="copy-single-btn" onclick="copyText('out_titel', this)">Kopieren</button>
+                    <p id="out_titel"></p>
+                </div>
+
+                <!-- Kasten 2 -->
+                <div class="result-box">
+                    <h3>Feld: Kurzbeschreibung</h3>
+                    <button class="copy-single-btn" onclick="copyText('out_beschreibung', this)">Kopieren</button>
+                    <p id="out_beschreibung"></p>
+                </div>
+
+                <!-- Kasten 3 -->
+                <div class="result-box">
+                    <h3>Feld: Auftrag an Lernende</h3>
+                    <button class="copy-single-btn" onclick="copyText('out_auftrag', this)">Kopieren</button>
+                    <p id="out_auftrag"></p>
+                </div>
+
+                <!-- Kasten 4 -->
+                <div class="result-box">
+                    <h3>Feld: System-Prompt (Verhalten)</h3>
+                    <button class="copy-single-btn" onclick="copyText('out_systemprompt', this)">Kopieren</button>
+                    <p id="out_systemprompt"></p>
+                </div>
+
+                <div class="button-group" style="margin-top: 40px;">
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="location.reload()">Neues Szenario erstellen</button>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <form id="wizardForm" onsubmit="return false;">
-        
-        <!-- Schritt 1: Basisdaten -->
-        <div class="step active" id="step1">
-            <label for="topic">Thema der Unterrichtseinheit</label>
-            <input type="text" id="topic" placeholder="z.B. Die Französische Revolution, Photosynthese, Faust I">
-            
-            <label for="grade">Klassenstufe</label>
-            <input type="text" id="grade" placeholder="z.B. 9. Klasse">
-            
-            <label for="subject">Fach</label>
-            <input type="text" id="subject" placeholder="z.B. Geschichte, Biologie, Deutsch">
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 3;
 
-            <div class="btn-group">
-                <button class="btn-next" onclick="nextStep(2)">Weiter</button>
-            </div>
-        </div>
-
-        <!-- Schritt 2: Lernziele -->
-        <div class="step" id="step2">
-            <label for="goal">Was ist das Lernziel?</label>
-            <textarea id="goal" placeholder="Was sollen die Schüler am Ende verstanden haben? z.B. Die Ursachen der Revolution verstehen und kritisch bewerten."></textarea>
-
-            <div class="btn-group">
-                <button class="btn-back" onclick="prevStep(1)">Zurück</button>
-                <button class="btn-next" onclick="nextStep(3)">Weiter</button>
-            </div>
-        </div>
-
-        <!-- Schritt 3: Die Rolle der KI -->
-        <div class="step" id="step3">
-            <label for="role">Welche Rolle soll die KI (Telli) einnehmen?</label>
-            <select id="role">
-                <option value="tutor">Sokratischer Tutor (stellt Rückfragen, gibt keine Lösungen)</option>
-                <option value="expert">Experte (erklärt Dinge einfach und verständlich)</option>
-                <option value="character">Historische/Fiktive Figur (Rollenspiel)</option>
-                <option value="debater">Debattierpartner (vertritt eine Gegenposition)</option>
-                <option value="quizmaster">Quizmaster (prüft Wissen ab)</option>
-            </select>
-
-            <label for="characterName" id="charLabel" style="display:none; margin-top:15px;">Welche Figur genau?</label>
-            <input type="text" id="characterName" style="display:none;" placeholder="z.B. Napoleon, Goethe, Ein Mitochondrium">
-
-            <div class="btn-group">
-                <button class="btn-back" onclick="prevStep(2)">Zurück</button>
-                <button class="btn-next" onclick="generateResult()">Fertigstellen</button>
-            </div>
-        </div>
-
-        <!-- Schritt 4: Ergebnis -->
-        <div class="step" id="step4">
-            <h3>Hier sind deine Texte für Telli!</h3>
-            <p>Kopiere die Inhalte einfach in die entsprechenden Felder.</p>
-
-            <div class="result-box">
-                <div class="result-label">Feld: Wie heißt das Szenario?</div>
-                <button class="copy-btn" onclick="copyToClipboard('res-title')">Kopieren</button>
-                <div id="res-title"></div>
-            </div>
-
-            <div class="result-box">
-                <div class="result-label">Feld: Wie kann das Szenario kurz beschrieben werden?</div>
-                <button class="copy-btn" onclick="copyToClipboard('res-desc')">Kopieren</button>
-                <div id="res-desc"></div>
-            </div>
-
-            <div class="result-box">
-                <div class="result-label">Feld: Wie lautet der Auftrag an die Lernenden?</div>
-                <button class="copy-btn" onclick="copyToClipboard('res-task')">Kopieren</button>
-                <div id="res-task"></div>
-            </div>
-
-            <div class="result-box">
-                <div class="result-label">Feld: Wie verhält sich telli? (System Prompt)</div>
-                <button class="copy-btn" onclick="copyToClipboard('res-prompt')">Kopieren</button>
-                <div id="res-prompt" style="white-space: pre-wrap;"></div>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn-back" onclick="prevStep(3)">Bearbeiten</button>
-                <button class="btn-next" onclick="location.reload()">Neues Szenario</button>
-            </div>
-        </div>
-
-    </form>
-</div>
-
-<script>
-    let currentStep = 1;
-    const totalSteps = 4;
-
-    // Event Listener für Rollenauswahl
-    document.getElementById('role').addEventListener('change', function() {
-        const charInput = document.getElementById('characterName');
-        const charLabel = document.getElementById('charLabel');
-        if(this.value === 'character') {
-            charInput.style.display = 'block';
-            charLabel.style.display = 'block';
-        } else {
-            charInput.style.display = 'none';
-            charLabel.style.display = 'none';
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
         }
-    });
 
-    function updateProgress() {
-        const percent = ((currentStep - 1) / (totalSteps - 1)) * 100;
-        document.getElementById('progress').style.width = percent + '%';
-    }
-
-    function showStep(stepNumber) {
-        // Alle Schritte ausblenden
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        // Gewünschten Schritt anzeigen
-        document.getElementById('step' + stepNumber).classList.add('active');
-        currentStep = stepNumber;
-        updateProgress();
-    }
-
-    function nextStep(targetStep) {
-        // Validierung (sehr einfach)
-        if (currentStep === 1) {
-            if (!document.getElementById('topic').value) {
-                alert("Bitte gib ein Thema ein.");
-                return;
+        function nextQuestion(current) {
+            // Einfache Validierung
+            if (current === 1) {
+                if (!document.getElementById('thema').value) { alert('Bitte Thema eingeben'); return; }
             }
-        }
-        showStep(targetStep);
-    }
+            if (current === 2) {
+                if (!document.getElementById('lernziel').value) { alert('Bitte Lernziel eingeben'); return; }
+            }
 
-    function prevStep(targetStep) {
-        showStep(targetStep);
-    }
-
-    function generateResult() {
-        // Daten sammeln
-        const topic = document.getElementById('topic').value;
-        const grade = document.getElementById('grade').value;
-        const subject = document.getElementById('subject').value;
-        const goal = document.getElementById('goal').value;
-        const roleType = document.getElementById('role').value;
-        const charName = document.getElementById('characterName').value;
-
-        // 1. Titel Generierung
-        let title = `${topic} entdecken`;
-        if(roleType === 'character' && charName) {
-            title = `Im Gespräch mit ${charName}: ${topic}`;
-        } else if (roleType === 'quizmaster') {
-            title = `Quiz-Challenge: ${topic}`;
-        } else if (roleType === 'debater') {
-            title = `Debatte: ${topic}`;
-        }
-        document.getElementById('res-title').innerText = title;
-
-        // 2. Beschreibung Generierung
-        document.getElementById('res-desc').innerText = `Ein interaktives Lernszenario für das Fach ${subject} (Klasse ${grade}). Die Schüler setzen sich mit dem Thema "${topic}" auseinander, um folgendes Ziel zu erreichen: ${goal}.`;
-
-        // 3. Auftrag an Lernende Generierung
-        let task = "";
-        if(roleType === 'tutor') {
-            task = `Begrüße Telli. Telli wird dir helfen, das Thema "${topic}" zu verstehen. Beantworte die Fragen, die Telli dir stellt.`;
-        } else if (roleType === 'character') {
-            task = `Du sprichst jetzt mit ${charName}. Führe ein Interview, um mehr über "${topic}" zu erfahren.`;
-        } else if (roleType === 'debater') {
-            task = `Telli ist anderer Meinung als du beim Thema "${topic}". Versuche, Telli mit guten Argumenten zu überzeugen.`;
-        } else {
-            task = `Starte das Gespräch mit "Hallo". Bearbeite das Thema "${topic}" gemeinsam mit der KI.`;
-        }
-        document.getElementById('res-task').innerText = task;
-
-        // 4. System Prompt Generierung (Das Herzstück)
-        let prompt = `Du bist ein KI-Lernbegleiter namens "telli" in einem Schulszenario.\n`;
-        prompt += `Zielgruppe: ${grade}, Fach: ${subject}.\n`;
-        prompt += `Thema: ${topic}.\n`;
-        prompt += `Lernziel: ${goal}.\n\n`;
-
-        prompt += `DEINE ROLLE:\n`;
-        
-        switch(roleType) {
-            case 'tutor':
-                prompt += `- Du agierst als sokratischer Tutor.\n- Gib NIEMALS die Lösung direkt vor.\n- Stelle Rückfragen, um den Schüler zur Lösung zu führen.\n- Sei geduldig und ermutigend.`;
-                break;
-            case 'expert':
-                prompt += `- Du bist ein Experte auf diesem Gebiet.\n- Erkläre Sachverhalte altersgerecht und verständlich.\n- Nutze Analogien und Beispiele.\n- Prüfe am Ende einer Erklärung, ob der Schüler es verstanden hat.`;
-                break;
-            case 'character':
-                prompt += `- Du bist ${charName}.\n- Bleibe strikt in dieser Rolle (First-Person-Perspektive).\n- Nutze Sprache und Wissen, die zu dieser Figur passen.\n- Wenn der Schüler dich nach modernen Dingen fragt, reagiere verwirrt (sofern historisch).`;
-                break;
-            case 'debater':
-                prompt += `- Du vertrittst eine kontroverse Gegenposition zum Thema.\n- Fordere die Argumente des Schülers heraus.\n- Sei höflich, aber bestimmt in der Sache.\n- Ziel ist es, die Argumentationsfähigkeit des Schülers zu trainieren.`;
-                break;
-            case 'quizmaster':
-                prompt += `- Du bist ein Quizmaster.\n- Stelle nacheinander 5 Fragen zum Thema.\n- Warte nach jeder Frage auf die Antwort.\n- Gib Feedback (Richtig/Falsch) und erkläre kurz, warum.\n- Zähle die Punkte mit.`;
-                break;
+            document.getElementById('q' + current).classList.remove('active');
+            currentQuestion = current + 1;
+            document.getElementById('q' + currentQuestion).classList.add('active');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        prompt += `\n\nVerhalte dich sicher und pädagogisch wertvoll. Vermeide unangemessene Inhalte.`;
+        function prevQuestion(current) {
+            document.getElementById('q' + current).classList.remove('active');
+            currentQuestion = current - 1;
+            document.getElementById('q' + currentQuestion).classList.add('active');
+            updateProgress();
+        }
 
-        document.getElementById('res-prompt').innerText = prompt;
+        function toggleCustomRole() {
+            const select = document.getElementById('kiRolle').value;
+            const container = document.getElementById('customRoleContainer');
+            container.style.display = select === 'custom' ? 'block' : 'none';
+        }
 
-        showStep(4);
-    }
+        function generateResult() {
+            const rolle = document.getElementById('kiRolle').value;
+            if (!rolle) { alert('Bitte Rolle wählen'); return; }
 
-    function copyToClipboard(elementId) {
-        const text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Text kopiert!");
-        }).catch(err => {
-            console.error('Fehler beim Kopieren: ', err);
-        });
-    }
-</script>
+            // Werte holen
+            const thema = document.getElementById('thema').value;
+            const schultyp = document.getElementById('schultyp').value;
+            const klasse = document.getElementById('klasse').value;
+            const fach = document.getElementById('fach').value;
+            const lernziel = document.getElementById('lernziel').value;
+            const customRoleText = document.getElementById('kiRolleCustom').value;
 
+            // 1. Titel
+            let titel = thema;
+            if(rolle === 'quiz') titel = `Quiz: ${thema}`;
+            if(rolle === 'debatte') titel = `Debatte: ${thema}`;
+            document.getElementById('out_titel').textContent = titel;
+
+            // 2. Beschreibung
+            document.getElementById('out_beschreibung').textContent = `Lernszenario für ${fach}, Klasse ${klasse} (${schultyp}). Ziel: ${lernziel}`;
+
+            // 3. Auftrag & 4. Prompt Logik
+            let auftrag = "";
+            let prompt = "";
+
+            const basePrompt = `Du bist ein KI-Lernbegleiter namens "telli".\nZielgruppe: ${klasse}. Klasse, ${schultyp}.\nFach: ${fach}.\nThema: ${thema}.\nLernziel: ${lernziel}.\n\n`;
+
+            switch(rolle) {
+                case 'tutor':
+                    auftrag = `Begrüße Telli. Telli hilft dir, das Thema "${thema}" zu verstehen. Beantworte die Fragen, die Telli dir stellt.`;
+                    prompt = basePrompt + `DEINE ROLLE: Sokratischer Tutor.\n- Gib NIEMALS die Lösung vor.\n- Stelle Rückfragen, um den Schüler zur Erkenntnis zu führen.\n- Sei geduldig und lobend.`;
+                    break;
+                case 'expert':
+                    auftrag = `Frage Telli alles, was du über "${thema}" wissen möchtest.`;
+                    prompt = basePrompt + `DEINE ROLLE: Fachexperte.\n- Erkläre Sachverhalte einfach und verständlich.\n- Nutze Beispiele und Analogien.\n- Frage am Ende, ob es verstanden wurde.`;
+                    break;
+                case 'historisch':
+                    auftrag = `Du triffst eine Person aus der Zeit von "${thema}". Führe ein Interview.`;
+                    prompt = basePrompt + `DEINE ROLLE: Eine historische Figur passend zum Thema.\n- Bleibe strikt in der Rolle (Ich-Form).\n- Nutze zeitgenössische Sprache.\n- Wisse nichts über die moderne Welt (Handys etc.).`;
+                    break;
+                case 'debatte':
+                    auftrag = `Telli ist anderer Meinung als du. Überzeuge Telli mit guten Argumenten.`;
+                    prompt = basePrompt + `DEINE ROLLE: Debattierpartner (Gegenposition).\n- Fordere die Argumente des Schülers heraus.\n- Sei höflich aber bestimmt in der Sache.`;
+                    break;
+                case 'quiz':
+                    auftrag = `Teste dein Wissen! Beantworte die Fragen von Telli.`;
+                    prompt = basePrompt + `DEINE ROLLE: Quizmaster.\n- Stelle 5 Fragen nacheinander.\n- Warte auf die Antwort.\n- Gib Feedback und erkläre kurz die Lösung.\n- Zähle Punkte.`;
+                    break;
+                case 'custom':
+                    auftrag = `Starte das Szenario zum Thema "${thema}".`;
+                    prompt = basePrompt + `DEINE ROLLE:\n${customRoleText}`;
+                    break;
+            }
+
+            document.getElementById('out_auftrag').textContent = auftrag;
+            document.getElementById('out_systemprompt').textContent = prompt;
+
+            // Ansicht wechseln
+            document.getElementById('q3').classList.remove('active');
+            document.getElementById('result').classList.add('active');
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copyText(elementId, btnElement) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Visuelles Feedback auf dem Button
+                const originalText = btnElement.textContent;
+                btnElement.textContent = "Kopiert!";
+                btnElement.classList.add('copied');
+                
+                // Nach 2 Sekunden zurücksetzen
+                setTimeout(() => {
+                    btnElement.textContent = originalText;
+                    btnElement.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
