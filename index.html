@@ -10,15 +10,15 @@
     
     <style>
         :root {
-            /* Farbpalette: Schwarz, Grau, Rot */
-            --primary-red: #D32F2F;       /* Kräftiges Rot */
-            --primary-red-hover: #B71C1C; /* Dunkleres Rot für Hover */
-            --text-dark: #111111;         /* Fast Schwarz */
-            --text-gray: #555555;         /* Mittelgrau */
-            --border-color: #cccccc;      /* Helles Grau für Ränder */
-            --bg-light: #f4f4f4;          /* Sehr helles Grau für Hintergründe */
-            --bg-body: #e0e0e0;           /* Hintergrund der Seite */
-            --radius: 4px;                /* Etwas eckigeres Design */
+            /* Farbpalette */
+            --primary-red: #D32F2F;
+            --primary-red-hover: #B71C1C;
+            --text-dark: #111111;
+            --text-gray: #555555;
+            --border-color: #cccccc;
+            --bg-light: #f4f4f4;
+            --bg-body: #e0e0e0;
+            --radius: 4px;
         }
 
         * {
@@ -43,7 +43,7 @@
             width: 100%;
             background: white;
             padding: 50px;
-            border-top: 6px solid var(--primary-red); /* Roter Akzent oben */
+            border-top: 6px solid var(--primary-red);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
@@ -207,7 +207,7 @@
             border-radius: var(--radius);
             padding: 20px;
             margin-bottom: 20px;
-            position: relative; /* Für absolute Positionierung des Buttons */
+            position: relative;
         }
 
         .result-box h3 {
@@ -217,18 +217,18 @@
             margin-bottom: 10px;
             border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
-            width: calc(100% - 90px); /* Platz für den Button lassen */
+            width: calc(100% - 90px);
         }
 
-        .result-box p {
+        .result-box p, .prompt-text {
             color: var(--text-dark);
             white-space: pre-wrap;
-            font-family: 'Courier New', Courier, monospace; /* Code-Look für den Text */
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
-        /* Einzelner Kopier-Button im Kasten */
+        /* Haupt-Kopier-Button (oben rechts im Kasten) */
         .copy-single-btn {
             position: absolute;
             top: 15px;
@@ -255,20 +255,61 @@
             color: white;
         }
 
+        /* Neue Styles für die Prompt-Liste */
+        .prompt-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .prompt-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: var(--radius);
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .prompt-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+
+        .copy-mini-btn {
+            background: #eee;
+            border: 1px solid #ccc;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .copy-mini-btn:hover {
+            background: #ddd;
+            border-color: #bbb;
+        }
+        
+        .copy-mini-btn.copied {
+            background: var(--primary-red);
+            color: white;
+            border-color: var(--primary-red);
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            .input-row {
-                grid-template-columns: 1fr;
-            }
-            .button-group {
-                flex-direction: column;
-            }
-            .result-box h3 {
-                width: 100%;
-                margin-bottom: 40px; /* Mehr Platz, damit Button nicht überlappt */
-            }
+            .container { padding: 20px; }
+            .input-row { grid-template-columns: 1fr; }
+            .button-group { flex-direction: column; }
+            .result-box h3 { width: 100%; margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -285,7 +326,7 @@
         </div>
 
         <form onsubmit="return false;">
-            <!-- Frage 1: Thema & Zielgruppe -->
+            <!-- Frage 1: Basisdaten -->
             <div class="question-card active" id="q1">
                 <div class="question-title">1. Basisdaten</div>
                 <div class="question-subtitle">Worum geht es in diesem Szenario?</div>
@@ -393,6 +434,19 @@
                     <p id="out_systemprompt"></p>
                 </div>
 
+                <!-- Kasten 5: Hintergrundwissen (NEU - 5 Felder) -->
+                <div class="result-box">
+                    <h3>Feld: Hintergrundwissen (Prompts)</h3>
+                    <p style="margin-bottom: 15px; font-size: 0.9rem; color: #666;">
+                        Wähle einen oder mehrere Prompts aus, kopiere sie und füge sie in eine externe KI (z.B. ChatGPT) ein, um das Wissen für Telli zu generieren.
+                    </p>
+                    
+                    <!-- Container für die 5 dynamischen Prompts -->
+                    <div id="prompt-list-container" class="prompt-list-container">
+                        <!-- Wird per JS gefüllt -->
+                    </div>
+                </div>
+
                 <div class="button-group" style="margin-top: 40px;">
                     <button class="btn btn-secondary" style="width: 100%;" onclick="location.reload()">Neues Szenario erstellen</button>
                 </div>
@@ -410,7 +464,6 @@
         }
 
         function nextQuestion(current) {
-            // Einfache Validierung
             if (current === 1) {
                 if (!document.getElementById('thema').value) { alert('Bitte Thema eingeben'); return; }
             }
@@ -462,7 +515,6 @@
             // 3. Auftrag & 4. Prompt Logik
             let auftrag = "";
             let prompt = "";
-
             const basePrompt = `Du bist ein KI-Lernbegleiter namens "telli".\nZielgruppe: ${klasse}. Klasse, ${schultyp}.\nFach: ${fach}.\nThema: ${thema}.\nLernziel: ${lernziel}.\n\n`;
 
             switch(rolle) {
@@ -495,6 +547,49 @@
             document.getElementById('out_auftrag').textContent = auftrag;
             document.getElementById('out_systemprompt').textContent = prompt;
 
+            // 5. Hintergrundwissen Prompts (NEU: 5 Stück mit Liste)
+            const promptContainer = document.getElementById('prompt-list-container');
+            promptContainer.innerHTML = ''; // Leeren
+
+            // Definition der 5 Prompts
+            const prompts = [
+                {
+                    label: "Option 1: Sachanalyse & Fakten",
+                    text: `Erstelle eine kompakte, strukturierte Sachanalyse zum Thema '${thema}' für das Fach ${fach}. Zielgruppe sind Schüler der ${klasse}. Klasse (${schultyp}). Fokus auf das Lernziel: ${lernziel}. Der Text soll als Wissensbasis für einen KI-Tutor dienen.`
+                },
+                {
+                    label: "Option 2: Begriffsdefinitionen",
+                    text: `Erstelle eine Liste der 10 wichtigsten Fachbegriffe zum Thema '${thema}'. Erkläre jeden Begriff kurz und kindgerecht für die ${klasse}. Klasse. Formatiere es als Liste.`
+                },
+                {
+                    label: "Option 3: Didaktische Stolpersteine",
+                    text: `Welche typischen Fehlvorstellungen (Misconceptions) haben Schüler der ${klasse}. Klasse beim Thema '${thema}'? Liste diese auf und erkläre kurz, wie man sie korrigiert, damit der KI-Tutor darauf vorbereitet ist.`
+                },
+                {
+                    label: "Option 4: Quiz-Fragen & Lösungen",
+                    text: `Erstelle 5 Multiple-Choice-Fragen zum Thema '${thema}' passend für Klasse ${klasse}. Gib jeweils die richtige Lösung und eine kurze Erklärung an. Dies dient als Datenbank für die KI.`
+                },
+                {
+                    label: "Option 5: Anwendungsbeispiele & Transfer",
+                    text: `Nenne 3 konkrete Beispiele aus dem Alltag oder der aktuellen Welt, die mit dem Thema '${thema}' verknüpft sind, um den Schülern die Relevanz zu zeigen. Erkläre den Zusammenhang kurz.`
+                }
+            ];
+
+            // HTML für jeden Prompt generieren
+            prompts.forEach((p, index) => {
+                const id = `bg_prompt_${index}`;
+                const html = `
+                    <div class="prompt-item">
+                        <div class="prompt-header">
+                            <span class="prompt-label">${p.label}</span>
+                            <button class="copy-mini-btn" onclick="copyText('${id}', this)">Kopieren</button>
+                        </div>
+                        <div class="prompt-text" id="${id}">${p.text}</div>
+                    </div>
+                `;
+                promptContainer.innerHTML += html;
+            });
+
             // Ansicht wechseln
             document.getElementById('q3').classList.remove('active');
             document.getElementById('result').classList.add('active');
@@ -505,12 +600,10 @@
         function copyText(elementId, btnElement) {
             const text = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(text).then(() => {
-                // Visuelles Feedback auf dem Button
                 const originalText = btnElement.textContent;
                 btnElement.textContent = "Kopiert!";
                 btnElement.classList.add('copied');
                 
-                // Nach 2 Sekunden zurücksetzen
                 setTimeout(() => {
                     btnElement.textContent = originalText;
                     btnElement.classList.remove('copied');
