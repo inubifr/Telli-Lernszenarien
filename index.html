@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="de"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Telli Szenario-Assistent&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-color: #2c3e50;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--accent-color: #3498db;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #f4f6f7;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--card-bg: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--text-color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--bg-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 25px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>p.subtitle {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #7f8c8d;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.step {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none; /* Alle Schritte standardmäßig ausblenden */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeIn 0.5s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.step.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block; /* Nur den aktiven Schritt anzeigen */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textarea,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>select {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #e0e0e0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: border-color 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"]:focus,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textarea:focus,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>select:focus {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--accent-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textarea {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resize: vertical;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-group {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-next {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--accent-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-next:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #2980b9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-back {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #95a5a6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-back:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #7f8c8d;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Result Styles */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-box {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #ecf0f1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 5px solid var(--accent-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #7f8c8d;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.copy-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>right: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 5px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.copy-btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #eee;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { opacity: 0; transform: translateY(10px); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { opacity: 1; transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-bar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #eee;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.progress-fill {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--accent-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 0%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: width 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Telli Szenario-Assistent&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="subtitle"&gt;Ich helfe dir, die Felder für dein Lernszenario auszufüllen.&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="progress-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="progress-fill" id="progress"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;form id="wizardForm" onsubmit="return false;"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Schritt 1: Basisdaten --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="step active" id="step1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="topic"&gt;Thema der Unterrichtseinheit&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="topic" placeholder="z.B. Die Französische Revolution, Photosynthese, Faust I"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="grade"&gt;Klassenstufe&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="grade" placeholder="z.B. 9. Klasse"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="subject"&gt;Fach&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="subject" placeholder="z.B. Geschichte, Biologie, Deutsch"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="btn-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-next" onclick="nextStep(2)"&gt;Weiter&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Schritt 2: Lernziele --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="step" id="step2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="goal"&gt;Was ist das Lernziel?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;textarea id="goal" placeholder="Was sollen die Schüler am Ende verstanden haben? z.B. Die Ursachen der Revolution verstehen und kritisch bewerten."&gt;&lt;/textarea&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="btn-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-back" onclick="prevStep(1)"&gt;Zurück&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-next" onclick="nextStep(3)"&gt;Weiter&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Schritt 3: Die Rolle der KI --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="step" id="step3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="role"&gt;Welche Rolle soll die KI (Telli) einnehmen?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="role"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="tutor"&gt;Sokratischer Tutor (stellt Rückfragen, gibt keine Lösungen)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="expert"&gt;Experte (erklärt Dinge einfach und verständlich)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="character"&gt;Historische/Fiktive Figur (Rollenspiel)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="debater"&gt;Debattierpartner (vertritt eine Gegenposition)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="quizmaster"&gt;Quizmaster (prüft Wissen ab)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="characterName" id="charLabel" style="display:none; margin-top:15px;"&gt;Welche Figur genau?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="characterName" style="display:none;" placeholder="z.B. Napoleon, Goethe, Ein Mitochondrium"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="btn-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-back" onclick="prevStep(2)"&gt;Zurück&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-next" onclick="generateResult()"&gt;Fertigstellen&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Schritt 4: Ergebnis --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="step" id="step4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Hier sind deine Texte für Telli!&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;Kopiere die Inhalte einfach in die entsprechenden Felder.&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="result-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-label"&gt;Feld: Wie heißt das Szenario?&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="copy-btn" onclick="copyToClipboard('res-title')"&gt;Kopieren&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="res-title"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="result-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-label"&gt;Feld: Wie kann das Szenario kurz beschrieben werden?&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="copy-btn" onclick="copyToClipboard('res-desc')"&gt;Kopieren&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="res-desc"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="result-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-label"&gt;Feld: Wie lautet der Auftrag an die Lernenden?&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="copy-btn" onclick="copyToClipboard('res-task')"&gt;Kopieren&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="res-task"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="result-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-label"&gt;Feld: Wie verhält sich telli? (System Prompt)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="copy-btn" onclick="copyToClipboard('res-prompt')"&gt;Kopieren&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="res-prompt" style="white-space: pre-wrap;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="btn-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-back" onclick="prevStep(3)"&gt;Bearbeiten&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn-next" onclick="location.reload()"&gt;Neues Szenario&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let currentStep = 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const totalSteps = 4;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Event Listener für Rollenauswahl</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('role').addEventListener('change', function() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const charInput = document.getElementById('characterName');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const charLabel = document.getElementById('charLabel');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(this.value === 'character') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>charInput.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>charLabel.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>charInput.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>charLabel.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateProgress() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const percent = ((currentStep - 1) / (totalSteps - 1)) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('progress').style.width = percent + '%';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function showStep(stepNumber) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Alle Schritte ausblenden</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.step').forEach(el =&gt; el.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Gewünschten Schritt anzeigen</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('step' + stepNumber).classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>currentStep = stepNumber;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>updateProgress();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function nextStep(targetStep) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Validierung (sehr einfach)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (currentStep === 1) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!document.getElementById('topic').value) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert("Bitte gib ein Thema ein.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showStep(targetStep);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function prevStep(targetStep) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showStep(targetStep);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function generateResult() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Daten sammeln</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const topic = document.getElementById('topic').value;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const grade = document.getElementById('grade').value;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const subject = document.getElementById('subject').value;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const goal = document.getElementById('goal').value;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const roleType = document.getElementById('role').value;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const charName = document.getElementById('characterName').value;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 1. Titel Generierung</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let title = `${topic} entdecken`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(roleType === 'character' &amp;&amp; charName) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>title = `Im Gespräch mit ${charName}: ${topic}`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (roleType === 'quizmaster') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>title = `Quiz-Challenge: ${topic}`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (roleType === 'debater') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>title = `Debatte: ${topic}`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('res-title').innerText = title;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 2. Beschreibung Generierung</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('res-desc').innerText = `Ein interaktives Lernszenario für das Fach ${subject} (Klasse ${grade}). Die Schüler setzen sich mit dem Thema "${topic}" auseinander, um folgendes Ziel zu erreichen: ${goal}.`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 3. Auftrag an Lernende Generierung</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let task = "";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(roleType === 'tutor') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>task = `Begrüße Telli. Telli wird dir helfen, das Thema "${topic}" zu verstehen. Beantworte die Fragen, die Telli dir stellt.`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (roleType === 'character') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>task = `Du sprichst jetzt mit ${charName}. Führe ein Interview, um mehr über "${topic}" zu erfahren.`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (roleType === 'debater') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>task = `Telli ist anderer Meinung als du beim Thema "${topic}". Versuche, Telli mit guten Argumenten zu überzeugen.`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>task = `Starte das Gespräch mit "Hallo". Bearbeite das Thema "${topic}" gemeinsam mit der KI.`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('res-task').innerText = task;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 4. System Prompt Generierung (Das Herzstück)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let prompt = `Du bist ein KI-Lernbegleiter namens "telli" in einem Schulszenario.\n`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>prompt += `Zielgruppe: ${grade}, Fach: ${subject}.\n`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>prompt += `Thema: ${topic}.\n`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>prompt += `Lernziel: ${goal}.\n\n`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>prompt += `DEINE ROLLE:\n`;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>switch(roleType) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>case 'tutor':</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prompt += `- Du agierst als sokratischer Tutor.\n- Gib NIEMALS die Lösung direkt vor.\n- Stelle Rückfragen, um den Schüler zur Lösung zu führen.\n- Sei geduldig und ermutigend.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>case 'expert':</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prompt += `- Du bist ein Experte auf diesem Gebiet.\n- Erkläre Sachverhalte altersgerecht und verständlich.\n- Nutze Analogien und Beispiele.\n- Prüfe am Ende einer Erklärung, ob der Schüler es verstanden hat.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>case 'character':</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prompt += `- Du bist ${charName}.\n- Bleibe strikt in dieser Rolle (First-Person-Perspektive).\n- Nutze Sprache und Wissen, die zu dieser Figur passen.\n- Wenn der Schüler dich nach modernen Dingen fragt, reagiere verwirrt (sofern historisch).`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>case 'debater':</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prompt += `- Du vertrittst eine kontroverse Gegenposition zum Thema.\n- Fordere die Argumente des Schülers heraus.\n- Sei höflich, aber bestimmt in der Sache.\n- Ziel ist es, die Argumentationsfähigkeit des Schülers zu trainieren.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>case 'quizmaster':</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prompt += `- Du bist ein Quizmaster.\n- Stelle nacheinander 5 Fragen zum Thema.\n- Warte nach jeder Frage auf die Antwort.\n- Gib Feedback (Richtig/Falsch) und erkläre kurz, warum.\n- Zähle die Punkte mit.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>prompt += `\n\nVerhalte dich sicher und pädagogisch wertvoll. Vermeide unangemessene Inhalte.`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('res-prompt').innerText = prompt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>showStep(4);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function copyToClipboard(elementId) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const text = document.getElementById(elementId).innerText;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>navigator.clipboard.writeText(text).then(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>alert("Text kopiert!");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).catch(err =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.error('Fehler beim Kopieren: ', err);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
